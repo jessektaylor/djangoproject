@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: 1.taylor.jesse@gmail.com
+Date: Wed, 24 Feb 2021 19:36:37 -0000
+Message-ID: <161419539724.8.10960587021196266175@9756083c7c23>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/MQ/ailah1-a8ee285eca462283b23627579b076d43/
+
+Your username, in case you’ve forgotten: jessecow7
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

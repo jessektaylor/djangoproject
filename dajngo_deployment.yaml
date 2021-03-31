@@ -1,0 +1,43 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-deployment
+  template:
+    metadata:
+      labels:
+        app: django-deployment
+    spec:
+      containers:
+        - name: django-deployment
+          image: 'jessecow7/djangoproject:latest'
+          env:
+          - name: secret_key
+            valueFrom:
+              secretKeyRef:
+                name: django
+                key: secret_key
+          - name: postgrespassword
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: postgrespassword
+          - name: postgreshost
+            valueFrom:
+              secretKeyRef:
+                name: postgres
+                key: postgreshost
+          - name: loadbalancerip
+            valueFrom:
+              secretKeyRef:
+                name: loadbalancerip
+                key: loadbalancerip
+          ports:
+            - name: web
+              containerPort: 8000
+              protocol: TCP

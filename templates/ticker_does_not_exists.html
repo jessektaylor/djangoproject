@@ -1,0 +1,16 @@
+
+<h1>{{ticker}} does not exists in the current ticker list</h1>
+<h3>Tickers are added daily</h3>
+<p>To submit a ticker to be added to the database please enter the ticker and asset name.</p>
+
+
+
+<!-- <form action="{% url 'tickernotfound' ticker=ticker %}"  method="post">
+    {% csrf_token %}
+    {{form.ticker}}
+    <input type="submit" value="Submit">
+  </form> -->
+
+<button type="submit"  onclick="location.href='{% url 'tickernotfoundsucess' ticker=ticker %}'" name='mybtn2'>submit request to add {{ ticker }}</button>
+
+<button type="submit"  onclick="location.href='{% url 'home' %}'" name='mybtn3'>cancel go Home</button>

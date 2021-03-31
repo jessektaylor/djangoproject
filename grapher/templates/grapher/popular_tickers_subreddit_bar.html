@@ -1,0 +1,42 @@
+
+
+
+
+ 
+    
+  <h1>working</h1>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  
+  <p>tee</p>
+  <canvas id="Chart" width="350" height="100"></canvas>
+  
+  <p>{{'test'|safe}}</p>
+
+  <p>asdldkfjbasdkjb</p>
+
+
+  <script>
+    new Chart(document.getElementById("Chart"), {
+      type: 'bar',
+      data: {{data|safe}},
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+
+        }
+      }
+    });
+  </script>
+
