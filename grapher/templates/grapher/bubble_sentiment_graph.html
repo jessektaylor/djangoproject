@@ -1,0 +1,39 @@
+
+
+<canvas id="bubble-chart" width="900" height="500"></canvas>
+
+
+<script>
+  new Chart(document.getElementById("bubble-chart"), {
+      type: 'bubble',
+    
+      data: {
+        datasets: {{datasets|safe}}
+      },
+      options: {
+        legend: { labels:{fontColor:'#fff'}},
+        title: {
+          display: false,
+        
+        }, scales: {
+          yAxes: [{ 
+            ticks: {fontColor:'#fff'},
+            scaleLabel: {
+              display: true,
+              labelString: "Times Mentioned",
+              fontColor:'#fff'
+            }
+            
+          }],
+          xAxes: [{ 
+            ticks: {fontColor:'#fff'},
+            scaleLabel: {
+              display: true,
+              labelString: "Sentiment scaled -1 to 1",
+              fontColor:'#fff'
+            }
+          }]
+        }
+      }
+  });
+</script>

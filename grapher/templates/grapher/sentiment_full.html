@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+
+
+<div class='container' id='block'>
+  <div class="row align-items-center">
+      <div  class='col-10' >
+          
+            {% include 'grapher/stock_stats.html' %}
+          <br>
+            {% include 'grapher/sentiment.html' %}
+          <br>
+          <a href="{% url 'grapher:SentimentTreeView' %}" class="btn btn-outline-secondary" role="button">Tree Map Chart</a>
+          <a href="{% url 'grapher:SentimentView' %}" class="btn btn-outline-secondary" role="button">Sentiment Chart</a>
+          <a href="{% url 'grapher:BubbleSentimentView' %}" class="btn btn-outline-secondary" role="button">Bubble Chart</a>
+          <a href="{% url 'grapher:NounView' %}" class="btn btn-outline-secondary" role="button">Tickers in Nouns</a>
+          <a href="{% url 'grapher:LiteralView' %}" class="btn btn-outline-secondary" role="button">Tickers in All Text</a>
+          {% include 'grapher/many_form.html' %}
+      </div>
+      <div class="col-2">
+        {% include 'grapher/user_side_bar.html' %}
+      </div>
+  </div>
+</div>
+{% include 'grapher/sentiment_explain.html' %}
+
+{% include 'footer.html' %}

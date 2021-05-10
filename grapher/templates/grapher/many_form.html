@@ -1,0 +1,45 @@
+
+{% load widget_tweaks %}
+
+<div class="container-fluid">
+<div class="card text-white bg-dark mb-3">
+  <div class="card-body">
+    <form action="{{ request.get_full_path | urlencode }}" method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    {% csrf_token %}
+                    <h4>Ticker Search</h4>
+                    {{many_form.ticker|add_class:"text-white bg-secondary"}}
+                    <p>Ticker search will route you to a page that gives more detail into the selected ticker.</p>
+                    
+                </div>
+                <div class="col-sm">
+                    <div >
+                        
+                            <h6>Days displayed</h6>
+                            {{many_form.days|add_class:"text-white bg-secondary"}}
+                            <h6>Tickers displayed</h6>
+                            {{many_form.bars|add_class:"text-white bg-secondary"}}
+                       
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h6>Subreddits</h6>
+                        </button>
+                        <div class="dropdown-menu text-white bg-secondary mb-3" aria-labelledby="dropdownMenuButton">
+                            {{many_form.subreddits}}
+                        </div>
+                        </div>
+                    
+                    
+                </div>
+                <button type="submit" value='submit' class="btn btn-outline-secondary">Update Chart</button>
+            </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>

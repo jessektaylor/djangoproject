@@ -1,0 +1,14 @@
+
+
+
+{% include 'base.html' %}
+
+{% load static %}
+<div class='container'>
+  <h3>The page you are attempting to reach requires logging in to keep track of each users preferences</h3>
+  <br>
+  
+  <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary" role="button">Login</a>
+  
+  <a href="{% url 'accounts:signup' %}" class="btn btn-outline-secondary" role="button">Create Account</a>
+</div>

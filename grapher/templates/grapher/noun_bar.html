@@ -1,0 +1,35 @@
+
+
+<div class="container-fluid">
+<canvas id="bar-chart" width="800" height="450"></canvas>  
+
+
+  </div>
+    <script>
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: {{labels|safe}},
+      datasets: [
+        {
+          backgroundColor: {{colors|safe}},
+          data: {{data|safe}}
+        }
+      ]
+    },
+    options: {
+      scales:{
+        yAxes: [{ticks:{fontColor:'#fff'}}],
+        xAxes: [{ticks:{fontColor:'#fff'}}]
+      },
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Searching for tickers in Nouns',
+        label: {{labels|safe}},
+        fontColor:"#fff"
+      }
+    }
+});
+    </script>
+

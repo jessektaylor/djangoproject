@@ -2,3 +2,7 @@ django
 psycopg2
 numpy
 pandas
+sklearn
+gunicorn
+npm
+django-widget-tweaks

@@ -1,0 +1,43 @@
+
+<div class='container'>
+
+    <h6>
+        The bubble chart view is a derivative of the treemap. This chart measures two variables: mentions and sentiment. The position of each node is relative to the other nodes both on mentions and sentiment. The farther right a bubble appears the more positive the sentiment. The higher on the graph displays the amount of mentions for that ticker relative to the others. The diameter of the node is based on the number of mentions also. This chart is reactive to clicking on the labels. If you start with clicking the top left label it will remove it from the graph and relative positions are then reset.
+    </h6>
+    <br>
+  
+    <div class="accordion text-white bg-dark" id="accordionExample">
+      <div class="accordion-item text-white bg-dark">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h6>How is sentiment calculated?</h6>
+          </button>
+        </h2>
+       
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+             Each post/comment is analyzed using three independent sentiment analysis packages 
+             ( <a href='https://pypi.org/project/vaderSentiment/'>VaderSentiment</a>, 
+             <a href='https://pypi.org/project/textblob/'>TextBlob</a>, 
+             <a href='https://pypi.org/project/flair/'>Flair</a>) to determine the aggregate sentiment. Both Vader and TextBlob use a rule based approach that rates sentiment using a lexicon and other information such as frequency and relational data. FLair uses a different approach  using a pre-trained LSTM neural network. This approach takes into account the sequence of letters and words when predicting to better understand the true nature of the sentiment. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item text-white bg-dark">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h6>How is the frequency of mentions calculated?</h6>
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+             Reddit posts/comments are searched for tickers stored in a databse. These posts/comments are examined via regular expression, and also by experimenting with extracting the nouns to eliminate false positives. Currently there are more than 8000 tickers that are being searched for many of which are common words which intern returns many false positives. Users are encouraged to black list tickers which they believe are not relevant. Black listed tickers are forever removed from all charts on the site unless you choose to add them back at any time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

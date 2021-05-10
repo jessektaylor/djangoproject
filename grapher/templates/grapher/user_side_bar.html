@@ -1,0 +1,71 @@
+
+
+{% load widget_tweaks %}
+
+    <div style="width: 18rem;">
+        <div class="card-body text-white bg-dark">
+        <h4>Customize Tickers Shown</h4>
+        <h6>Watch list</h6>
+        <form action="{% url 'accounts:add_ticker_to_watch_list' %}"  method="post">
+        {% csrf_token %}
+        {{black_list_form.ticker|add_class:"text-white bg-secondary"}}
+        <br>
+
+
+        <input class="btn btn-outline-secondary" type="submit" value="Add to Watch List">
+        </br>
+        </form>
+        </br>
+        <div class="dropdown">
+            <a class="btn btn-outline-secondary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Watch List
+            </a>
+        
+            <ul class="dropdown-menu text-white bg-secondary  mb-3" aria-labelledby="dropdownMenuLink">
+            {% for ticker in watch_list %}
+                <li>
+                <a class="text-white"  href="{% url 'accounts:remove_ticker_from_watch_list' ticker=ticker.ticker %}"">
+                    <div class='container'>
+                        <h6>
+                        {{ticker.ticker}}
+                        </h6>
+                    </div>
+                </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        </br>
+        <h6>Black List</h6>
+        <form action="{% url 'accounts:add_ticker_to_black_list' %}"  method="post">
+            {% csrf_token %}
+            {{black_list_form.ticker|add_class:"text-white bg-secondary" }}
+            <br>
+            <input class="btn btn-outline-secondary" type="submit" value="Add to Black List">
+            </br>
+        </form>
+        </br>
+        <div class="dropdown">
+            <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Black Listed Tickers
+            </a>
+            <ul class="dropdown-menu text-white bg-secondary  mb-3" aria-labelledby="dropdownMenuLink">
+            {% for ticker in black_list %}
+                <li>
+                <div class='container'>
+                    <a class='text-white' href="{% url 'accounts:remove_ticker_from_black_list' ticker=ticker.ticker %}"">
+                        <h6>
+                            {{ticker.ticker}}
+                        <h6>
+                    </a>
+                </div>
+                </li>
+            
+            {% endfor %}
+        </ul>
+    </div>
+    </br>
+    <p>Click ticker in dropdown to remove.</p>
+
+    </div>
+ </div>

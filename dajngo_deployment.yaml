@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: django-deployment
+  labels:
+    name: django-deployment
 spec:
   replicas: 1
   selector:
@@ -32,12 +34,61 @@ spec:
               secretKeyRef:
                 name: postgres
                 key: postgreshost
-          - name: loadbalancerip
-            valueFrom:
-              secretKeyRef:
-                name: loadbalancerip
-                key: loadbalancerip
+          # - name: loadbalancerip
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: loadbalancerip
+          #       key: loadbalancerip
           ports:
             - name: web
               containerPort: 8000
               protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-deployment
+  labels:
+    name: django-deployment
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    name: django-deployment
+
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: django-ingress-resource
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: 34.70.255.61.xip.io
+    http:
+      paths:
+      - backend:
+          serviceName: dajngo-project
+          servicePort: 8000
+        path: /
+  
+
+
+
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: hedgethis.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+       ingress:
+         class: nginx

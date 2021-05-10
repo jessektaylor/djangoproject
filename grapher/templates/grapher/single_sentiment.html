@@ -1,0 +1,85 @@
+
+
+<!-- <script src="https://www.gstatic.com/charts/loader.js"></script> -->
+
+
+<script>
+google.charts.load('current', {
+  callback: drawLineColors,
+  packages: ['corechart']
+});
+
+</script>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+            {{data|safe}}
+        );
+        var options = {
+          crosshair: {orientation: 'horizontal' },
+          vAxes: {0: {viewWindowMode:'explicit',
+                      viewWindow:{
+                                  max:{{max_value|safe}},
+                                  min:{{min_value|safe}}
+                                  },
+                     gridlines: {color: 'transparent'} 
+                      },
+                  1: {gridlines: {color: 'transparent'},
+                      },
+                  },
+          series: {0: {targetAxisIndex:0},
+                   1:{targetAxisIndex:1},
+                    
+                  },
+          colors: ['8EF9F3', '9A48D0'], 
+          backgroundColor: 'transparent',
+          hAxis: {textStyle:{color: '#FFF'}},
+          vAxis: {textStyle:{color: '#FFF'}},
+          title: {textStyle: { color: '#FFF' }},
+          legend: {textStyle: { color: '#FFF' }},
+          // chartArea:{ width:'850', height:400},
+          crosshair: { trigger: 'focus'}
+        };
+
+        
+        function resize () {
+          var chart = new google.visualization.LineChart(document.getElementById('chart_id'));
+              chart.draw(data, options);
+          }
+          window.onload = resize;
+          window.onresize = resize;
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_id'));
+        chart.draw(data, options);
+      }
+
+</script>
+
+
+<div  class="container">
+  <div  class="card text-white bg-dark ">
+      <table class="table table-hover table-dark" >  
+          <thead>
+              <tr>
+                  <th scope="col">{{days}} days % change</th>
+                  <th scope="col">Max Price</th>
+                  <th scope="col">Min Price</th>
+              </tr>
+          </thead>
+              
+              <tr>
+                  <th style="color:{{percent_change_color}};">{{percent_change|floatformat:2}}%</th>
+                  <th >{{max_price|floatformat:2}}</th>
+                  <th>{{min_price|floatformat:2}}</th>
+              </tr>
+      </table>
+    </div>
+  <div id="chart_id" style=" width: 100%; height: 500px;"></div>
+
+ 
+

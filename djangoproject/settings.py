@@ -30,7 +30,7 @@ else:
     DEBUG = False
 
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1', os.getenv('loadbalancer_ip'), 'hedgethis.com', os.getenv('loadbalancerip')]
+ALLOWED_HOSTS = ['*','localhost','127.0.0.1', os.getenv('loadbalancer_ip'), 'hedgethis.com', os.getenv('loadbalancerip')]
 
 
 # Application definition
@@ -38,12 +38,16 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', os.getenv('loadbalancer_ip'), 'hedgeth
 INSTALLED_APPS = [
     'grapher',
     'accounts',
+    'ticker_manager',
+    'database_overview',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +65,13 @@ ROOT_URLCONF = 'djangoproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(BASE_DIR.joinpath('templates'))],
+        'DIRS': [
+                str(BASE_DIR.joinpath('database_overview/templates')),
+                str(BASE_DIR.joinpath('templates')),
+                str(BASE_DIR.joinpath('ticker_manager/templates')),
+                str(BASE_DIR.joinpath('accounts/templates')),
+                str(BASE_DIR.joinpath('registration/templates'))
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,6 +120,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -127,10 +139,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+
+
+
+LOGIN_URL = '/accounts/login_required/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

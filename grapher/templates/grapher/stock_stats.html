@@ -1,0 +1,93 @@
+{% load humanize %}
+{% load static%}
+<link rel="stylesheet" href="{% static 'grapher/style.css' %}">
+
+<div  class="container-fluid">
+    <div  class="card text-white bg-dark ">
+        <table class="table table-hover table-dark" >  
+            <thead>
+                <tr>
+                    <th scope="col">Initial Capital</th>
+                    <th scope="col">Final Capital</th>
+                    <th scope="col">Stadard Deviation</th>
+                    <th scope="col">{{days}} Day % Change</th>
+                    <th scope="col">Anualized Return</th>
+                    <th scope="col">Number of tickers</th>
+                </tr>
+            </thead>
+                
+                <tr>
+                    <th>${{portfolio_start|floatformat:2|intcomma}}</th>
+                    <th style="color:{{portfolio_end_color}};">${{portfolio_end|floatformat:2|intcomma}}</th>
+                    <th>{{std_mean|floatformat:3 }}</th>
+                    <th style="color:{{percent_mean_color}};">{{percent_mean|floatformat:3}}%</th>
+                    <th style="color:{{anual_return_color}};">{{anual_return|floatformat:2|intcomma}}%</th>
+                    <th scope="col">{{bars}}</th>
+                </tr>
+        </table>
+            <a  class=" btn btn-outline-secondary dropdown-toggle " data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Stock Stats Audit
+            </a>
+        
+   
+        
+    
+
+
+
+    <div class="collapse"  id="collapseExample">
+        
+        <div class="table table-hover table-dark " >
+                <table class='container-fluid' >  
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">ticker</th>
+                            <th scope="col">{{days}} day % change</th>
+                            <th scope="col">Standard deviation</th>
+                            <th scope="col">Volume</th>
+                            <th scope="col">Adjusted Close</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <thead>
+                            <tr >
+                                <th >Portfolio Totals</th>
+                                <th scope="col"></th>
+                                <th scope="col" style="background-color: {{percent_mean_color}};">{{percent_mean|floatformat:2 }}%</th>
+                                <th scope="col">{{std_mean|floatformat:3 }}</th>
+                                <th scope="col" style="color-text: {{volume_mean_color}};" >{{volume_mean|floatformat:2 }}</th>
+                                <th ></th>
+                        </tr>  
+                        </thead>
+
+                        {% for stock in stock_data %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <th>{{stock.ticker}}</th>
+                            <th style="color: {{stock.pct_color}};" >{{stock.pct_change|floatformat:3 }}</th>
+                            <th>{{stock.std|floatformat:3 }}</th>
+                            <th style="color: {{stock.vol_color}};" >{{stock.volume_stat|floatformat:2 }}</th>
+                            <th>{{stock.adjclose|floatformat:2 }}</th>
+                        </tr>
+                        {% endfor %}  
+                        
+                    </tbody>
+
+                </table>
+                <div class='container-fluid'>
+                    <a  class=" btn btn-outline-secondary  " data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Colapse Stock Stats
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    
+    
+

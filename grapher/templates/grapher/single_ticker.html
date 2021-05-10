@@ -1,0 +1,57 @@
+
+
+<div class="container">
+ 
+    <div class="col-md">
+        <canvas id="reddit_subreddit_single" width="800" height="400"></canvas>
+    </div>
+  </div>
+</div>
+
+
+<button type="submit" initial_reset=True onclick="location.href='{% url 'grapher:singletickerreset' ticker=ticker days=days subreddit_ids=subreddit_ids initial_reset='resetForm' %}'" name='mybtn2'>Reset Form</button>
+
+<form action=""  method="post">
+  {% csrf_token %}
+  <h2>Search ticker</h2>
+  {{form.ticker}}
+  <h4>Select how many bars</h4>
+  <p>How many days displayed</p>
+  {{form.days}}
+  <br>
+  <h4>Filter by Subreddit</h4>
+  <p>Blue check mark indicates the Subreddit(s) shown after clicking submit.
+  </p>
+  {{form.subreddits}}
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+    new Chart(document.getElementById("reddit_subreddit_single"), {
+      type: 'bar',
+      data: {{reddit_subreddit_single|safe}},
+      options: {
+        scales: {
+          yAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true
+            }
+
+          }],
+          xAxes: [{
+            stacked: true,
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+    
+
+
+  </script>
+
+
+{% endblock %}

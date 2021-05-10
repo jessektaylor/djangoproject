@@ -16,17 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from . views import HomeView, SingleTickerView, TickerNotFoundView, TickerNotFoundSucessView
+from . views import HomeView
+from django.contrib.auth import views
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('grapher/', include('grapher.urls')),
     path('accounts/', include('accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', HomeView.as_view(), name='home'),
-    path('<int:num>/<int:days>', HomeView.as_view(), name='home2'),
+    path('ticker_manager/', include('ticker_manager.urls')),
+    path('database_overview/', include('database_overview.urls')),
+    path('', HomeView,name='home'),
     path('admin/', admin.site.urls),
-    path('<str:ticker>/', SingleTickerView.as_view(), name='singleticker'),
-    path('<str:ticker>/<str:initial_reset>', SingleTickerView.as_view(), name='singleticker'),
-    path('<str:ticker>/notfound/', TickerNotFoundView.as_view(), name='tickernotfound'),
-    path('<str:ticker>/request-ticker/', TickerNotFoundSucessView.as_view(), name='tickernotfoundsucess')
-]   
+    path('', include('django.contrib.auth.urls')),
+
+]  

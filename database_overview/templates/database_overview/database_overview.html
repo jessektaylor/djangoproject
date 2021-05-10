@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="container">
+  <div class='container'>
+        <h2>Posts/Comments Saved Each Day </h2>
+        <h4>Each bar represents on day spaning ten days back. </h4>
+    </div>
+  <canvas id="myChart" width="350" height="100"></canvas>
+</div>
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+     
+        <div class="container text-white bg-secondary mb-3">
+            <div class="container">
+            <h2>Number of posts/comments in database </h2>
+            <p>Posts = {{post_count|intcomma}}</p>
+            <p>Comments = {{comment_count|intcomma}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="container text-white bg-secondary mb-3">
+          <div class="container">
+          <h2>Last Update to database</h2>
+          <p>Reddit is set to scrape every three hours</p>
+          <p>Comments = {{last_comment|naturaltime}}</p>
+          <p>Posts = {{last_post|naturaltime}}</p>
+          <p>earliest post is from {{oldest_post|naturaltime}}</p>
+          </div>
+      </div>
+    </div>
+   
+  </div>
+
+
+  
+  <div class="card text-white bg-secondary mb-3">
+    <div class="container">
+    
+    <h2>Total comments and posts for each subreddit</h2>
+    <table>
+      {% for count, subreddit in subreddit_counts %}
+        <tr>
+          <th scope="col">{{subreddit|intcomma}}</th>
+
+          <th scope="col">{{count|intcomma}}</th>
+        </tr>
+      {% endfor %}
+    </table>  
+    </div>
+  </div>
+
+
+
+</div>
+{% include 'footer.html' %}
+
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: {{bar_labels|safe}},
+    datasets: [{
+      label: 'Posts/Comments saved to Database',
+      data: {{bar_data|safe}},
+      backgroundColor: {{backgroundColor|safe}}
+     
+    }]
+  }
+});
+</script>
+
+
+
+{% endblock %}

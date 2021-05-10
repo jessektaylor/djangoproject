@@ -1,0 +1,179 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+<button type="submit" initial_reset=True onclick="location.href='{% url 'grapher:SubredditLiteralBarWatchList' view_watch_list='view_watch_list' %}'" name='mybtn2'>View Watch List</button>
+<button type="submit" initial_reset=True onclick="location.href='{% url 'grapher:SubredditLiteralBar'  %}'" name='mybtn2'>All Tickers</button>
+    <div>
+      <div class="row">
+        <div class="col-sm">
+          <div class="card" ">
+            <div class="card-body">
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ticker / nasdaq link</th>
+                    <th scope="col">Company Name/ yahoo link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ticker in ticker_qurys %}
+                  <tr>
+                    <th scope="row" '>
+                      <a href="https://www.nasdaq.com/market-activity/stocks/{{ticker.ticker}}" target="_blank">{{ticker.ticker}}</a>
+                    </th>
+                    <td>
+                      <a href="https://finance.yahoo.com/quote/{{ticker.ticker}}" target="_blank">{{ticker.company_name}}</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                    <tr>
+                      <th scope='col'>
+                        {{ticker}}
+                      </th>
+                    </tr>
+                  <p>{{ticker}}</p>
+                </thead>
+              </table>
+        </div>
+      </div>
+    </div>
+
+
+
+        
+        <div class="col-md">
+          <div class="card" ">
+            <div class="card-body">
+
+              <div class='container-fluid'>
+                <h1>Reddit Posts and Comments Overview</h1>
+              </div>
+              
+              <canvas id="reddit_subreddit_bar" width="800" height="400"></canvas>
+              <h3>showing from {{from_date}}</h3>
+
+              <form action="{% url 'grapher:SubredditLiteralBar' %}" method="post">
+                  {% csrf_token %}
+                  <h2>Search ticker</h2>
+                  {{form.ticker}}
+                  <h4>Select how many bars</h4>
+                  <p>Each bar represents one assest.</p>
+                  {{form.bars}}
+                  <p>How many days displayed</p>
+                  {{form.days}}
+                  <br>
+                  <h4>Filter by Subreddit</h4>
+                  <p>Blue check mark indicates the Subreddit(s) shown after clicking submit.
+                  </p>
+                  {{form.subreddits}}
+                  <input type="submit" value="Submit">
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-sm">
+
+          <div class="card" ">
+            <div class="card-body">
+              <h4>User Ticker Selection</h4>
+              <h6>Watch list</h6>
+              <form action="{% url 'accounts:add_ticker_to_watch_list' %}"  method="post">
+                {% csrf_token %}
+                {{BlackListedTickersForm.ticker}}
+                <input type="submit" value="Add to Watch List">
+                </br>
+              </form>
+              </br>
+                <div class="dropdown">
+                  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Watch List
+                  </a>
+                
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {% for ticker in user_watch_list %}
+                      <li>
+                        <a href="{% url 'accounts:remove_ticker_from_watch_list' ticker=ticker.ticker %}"">{{ticker.ticker}}</a>
+                      </li>
+                      {% endfor %}
+                  </ul>
+                </div>
+              </br>
+                <h6>Black List</h6>
+            <form action="{% url 'accounts:add_ticker_to_black_list' %}"  method="post">
+              {% csrf_token %}
+              {{BlackListedTickersForm.ticker}}
+              <input type="submit" value="Add to black list">
+              </br>
+            </form>
+          </br>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Black Listed Tickers
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {% for ticker in user_black_list %}
+                  <li>
+                    <a href="{% url 'accounts:remove_ticker_from_black_list' ticker=ticker.ticker %}"">{{ticker.ticker}}</a>
+                   
+                  </li>
+                 
+                  {% endfor %}
+              </ul>
+            </div>
+          </br>
+            <p>To remove a ticker from either list just click on the ticker in the dropdown</p>
+
+            </div>
+          </div>
+
+
+              
+        </div>
+      </div>
+    </div>
+
+
+  
+  </div>
+  
+  
+    <script>
+      new Chart(document.getElementById("reddit_subreddit_bar"), {
+        type: 'bar',
+        data: {{reddit_subreddit_bar|safe}},
+        options: {
+          scales: {
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+      
+
+
+    </script>
+
+{% endblock %}

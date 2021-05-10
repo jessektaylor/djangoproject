@@ -1,0 +1,27 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+
+
+<div class="d-flex justify-content-center align-items-center" style="height:100px;">
+    <div class="bg-primary  text-white">MIDDLE</div>    
+</div>
+<h1>test</h1>
+
+
+
+    {% block content %}
+      <div class="container">
+        <h2>Log In</h2>
+      
+      <form  method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Log In</button>
+      </form>
+      </div>
+     
+  </div>
+  {% include 'footer.html' %}
+
+{% endblock %}

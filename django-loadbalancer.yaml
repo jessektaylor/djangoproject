@@ -1,21 +1,33 @@
 
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: django-service
+# spec:
+#   ports:
+#     - protocol: TCP
+#       port: 80
+#       targetPort: 8000
+#       nodePort: 32037
+#   selector:
+#     app: django-deployment
+#   clusterIP: 10.15.243.82
+#   type: LoadBalancer
+#   sessionAffinity: None
+#   externalTrafficPolicy: Cluster
+# status:
+#   loadBalancer:
+#     ingress:
+#       - ip: 34.66.24.255
+
 apiVersion: v1
 kind: Service
 metadata:
   name: django-service
 spec:
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8000
-      nodePort: 32037
   selector:
     app: django-deployment
-  clusterIP: 10.15.243.82
-  type: LoadBalancer
-  sessionAffinity: None
-  externalTrafficPolicy: Cluster
-status:
-  loadBalancer:
-    ingress:
-      - ip: 34.66.24.255
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

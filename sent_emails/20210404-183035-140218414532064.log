@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: 1.taylor.jesse@gmail.com
+Date: Sun, 04 Apr 2021 18:30:35 -0000
+Message-ID: <161756103544.20.3677479037106439920@99c972e6e7be>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/reset/MQ/aklfez-512e4aa5c8c62fd768c13f698a865443/
+
+Your username, in case you’ve forgotten: jessecow7
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------
